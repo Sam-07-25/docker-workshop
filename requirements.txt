@@ -1,0 +1,2 @@
+# Flask provides the small web server used by this workshop.
+Flask==3.1.2
