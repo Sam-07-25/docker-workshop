@@ -1,0 +1,21 @@
+# Git files are useful for development but are not needed
+# inside the Docker image.
+.git
+.gitignore
+
+# Python may automatically create these cache files.
+# They are not needed to run the application.
+__pycache__/
+*.pyc
+
+# Python virtual environments should not be copied into
+# the container because Docker creates its own environment.
+.venv/
+venv/
+
+# macOS sometimes creates this hidden metadata file.
+.DS_Store
+
+# This is the instructor's completed Dockerfile.
+# It should not be included inside the Docker image.
+Dockerfile.solution
