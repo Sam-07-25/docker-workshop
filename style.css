@@ -1,0 +1,259 @@
+/* ==========================================================
+   Ada the Arctic Ferret - styles
+   This file only controls how the page LOOKS!
+   ========================================================== */
+
+/* ---------- Color palette (change these to re-theme the page) ---------- */
+:root {
+  --ice-light: #eaf6ff;
+  --ice-mid: #bfe3f7;
+  --ice-deep: #4a90c2;
+  --night: #1d3a56;
+  --accent: #ff7a9c;      /* treat button */
+  --white: #ffffff;
+}
+
+/* ---------- Page basics ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  color: var(--night);
+  /* Soft icy gradient background */
+  background: linear-gradient(160deg, var(--ice-light) 0%, var(--ice-mid) 100%);
+  overflow-x: hidden;
+}
+
+/* Helper class: script.js adds/removes this to show or hide sections */
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Main card ---------- */
+.card {
+  position: relative;
+  z-index: 1; /* keeps the card above the falling snow */
+  width: 100%;
+  max-width: 520px;
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(29, 58, 86, 0.18);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0 0 24px;
+  font-size: 1.1rem;
+  color: var(--ice-deep);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px; /* fully rounded "pill" shape */
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(29, 58, 86, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--night);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  font-size: 1.15rem;
+  color: var(--white);
+  background: var(--ice-deep);
+}
+
+.btn-secondary {
+  color: var(--white);
+  background: var(--accent);
+}
+
+.btn-ghost {
+  color: var(--ice-deep);
+  background: transparent;
+  border: 2px solid var(--ice-mid);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* ---------- Ada ---------- */
+#ada-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+#ada {
+  width: 220px;
+  max-width: 70%;
+  height: auto;
+  /* Plays once when Ada appears (see @keyframes below) */
+  animation: pop-in 0.6s ease-out;
+}
+
+/* Emoji stand-in used only when ada.png is missing */
+#ada-fallback {
+  display: none;
+  font-size: 8rem;
+  line-height: 1;
+  animation: pop-in 0.6s ease-out;
+}
+
+/* script.js adds this class briefly when a treat is given */
+.bounce {
+  animation: bounce 0.5s ease;
+}
+
+/* ---------- Speech bubble ---------- */
+#speech-bubble {
+  position: relative;
+  margin: 16px auto 0;
+  padding: 16px 20px;
+  max-width: 420px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: var(--ice-light);
+  border: 2px solid var(--ice-mid);
+  border-radius: 18px;
+}
+
+#speech-bubble p {
+  margin: 0;
+}
+
+/* Little triangle pointing up toward Ada */
+#speech-bubble::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--ice-mid);
+}
+
+#treat-counter {
+  margin: 16px 0 0;
+  font-size: 0.95rem;
+  color: var(--ice-deep);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--night);
+  opacity: 0.8;
+}
+
+/* ---------- Falling snow ---------- */
+#snow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* clicks pass straight through the snow */
+  overflow: hidden;
+  z-index: 0;
+}
+
+.snowflake {
+  position: absolute;
+  top: -20px;
+  color: var(--white);
+  opacity: 0.85;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Treat emoji that float up when you click the treat button */
+.floating-treat {
+  position: fixed;
+  z-index: 2;
+  font-size: 1.8rem;
+  pointer-events: none;
+  animation: float-up 1.2s ease-out forwards;
+}
+
+/* ---------- Animations ---------- */
+@keyframes pop-in {
+  0%   { transform: scale(0.3); opacity: 0; }
+  70%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  30%      { transform: translateY(-24px) rotate(-4deg); }
+  60%      { transform: translateY(0) rotate(3deg); }
+}
+
+@keyframes fall {
+  to { transform: translateY(105vh); }
+}
+
+@keyframes float-up {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-120px) scale(1.4); opacity: 0; }
+}
+
+/* ---------- Accessibility ---------- */
+/* If a visitor has asked their device to reduce motion, turn animations off. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  #snow {
+    display: none;
+  }
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  .card {
+    padding: 24px 16px;
+  }
+}
