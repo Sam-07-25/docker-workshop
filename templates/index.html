@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ada the Arctic Ferret</title>
+
+  <!--
+    url_for('static', filename=...) is a Flask helper that builds the URL
+    for files in the static/ folder. Flask fills these in before sending
+    the page to your browser.
+  -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Decorative snowflakes. script.js fills this container with falling snow. -->
+  <div id="snow" aria-hidden="true"></div>
+
+  <main class="card">
+
+    <h1>Welcome to the Docker Workshop!</h1>
+
+    <!-- STEP 1: The welcome screen. Visible when the page first loads. -->
+    <section id="welcome-screen">
+      <p class="subtitle">Someone has been waiting for you to launch this app...</p>
+      <button id="start-button" class="btn btn-primary" type="button">
+        Say hi to Ada
+      </button>
+    </section>
+
+    <!-- STEP 2: Ada's screen. Hidden until the button above is clicked. -->
+    <section id="ada-screen" class="hidden">
+
+      <!-- Ada's picture. Replace static/ada.png to change her artwork. -->
+      <div id="ada-wrapper">
+        <img
+          id="ada"
+          src="{{ url_for('static', filename='ada.png') }}"
+          alt="Ada, GWC's arctic ferret mascot"
+          onerror="this.style.display='none'; document.getElementById('ada-fallback').style.display='block';"
+        >
+        <!-- Shown only if ada.png is missing, so the page still works. -->
+        <div id="ada-fallback" aria-hidden="true">🦦</div>
+      </div>
+
+      <!-- Ada's speech bubble. The text is filled in by script.js. -->
+      <div id="speech-bubble" role="status" aria-live="polite">
+        <p id="ada-message"></p>
+      </div>
+
+      <!-- Extra interactions -->
+      <div class="actions">
+        <button id="treat-button" class="btn btn-secondary" type="button">
+          Give Ada a treat 🍓
+        </button>
+        <button id="reset-button" class="btn btn-ghost" type="button">
+          Start over
+        </button>
+      </div>
+
+      <p id="treat-counter">Treats given: <span id="treat-count">0</span></p>
+    </section>
+
+  </main>
+
+  <footer>
+    Powered by Flask, running inside a Docker container 🐳
+  </footer>
+
+  <!-- Loaded at the end so the page elements above exist before the script runs. -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
